@@ -1,0 +1,5 @@
+{
+  "name": "AI Portfolio Matcher",
+  "description": "A personal portfolio that uses an AI engine to match projects with recruiter job descriptions, generating a personalized suitability summary.",
+  "requestFramePermissions": []
+}
