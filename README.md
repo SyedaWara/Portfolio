@@ -41,8 +41,7 @@ You need to run two processes in separate terminals: the backend API and the fro
 ## Admin Access
 
 -   **Admin Login:** Click the "Admin Login" button in the footer.
--   **Password:** `password123`
-
+-   **Password:** `wara'  
 Once logged in, you will be able to add and delete projects and skills.
 =======
 # Portfolio
