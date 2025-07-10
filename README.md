@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 # AI Portfolio Matcher (Full-Stack)
 
 This project is a full-stack portfolio application featuring a React frontend and an ASP.NET Core backend.
@@ -43,3 +44,6 @@ You need to run two processes in separate terminals: the backend API and the fro
 -   **Password:** `password123`
 
 Once logged in, you will be able to add and delete projects and skills.
+=======
+# Portfolio
+>>>>>>> 8ae9a8287bc261aaf79aa173df97cba256b1b466
