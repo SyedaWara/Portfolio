@@ -29,6 +29,26 @@ namespace PortfolioApi.Controllers
             _context.SaveChanges();
             return Ok(project);
         }
+        [HttpPut("{id}")]
+public IActionResult Update(int id, [FromBody] Project updates)
+{
+    var project = _context.Projects.FirstOrDefault(p => p.Id == id);
+    if (project == null)
+        return NotFound();
+
+    // Manually merge only non-null values
+    if (!string.IsNullOrWhiteSpace(updates.Title))
+        project.Title = updates.Title;
+
+    if (!string.IsNullOrWhiteSpace(updates.Description))
+        project.Description = updates.Description;
+
+    // Optionally: skip updating Skills here unless you're handling it
+
+    _context.SaveChanges();
+
+    return Ok(project);
+}
 
         [HttpDelete("{id}")]
         public IActionResult Delete(int id)
