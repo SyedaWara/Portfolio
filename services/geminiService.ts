@@ -28,8 +28,9 @@ export async function findMatchingProjects(jobDescription: string, projects: Pro
 
   // filepath: c:\Users\Wara\Desktop\ai-portfolio-matcher\services\geminiService.ts
 const projectSummaries = projects.map(p => 
-  `Project: "${p.title}", Summary: "${ p.description || 'No summary provided.'}"`
+  `ID: ${p.id}, Title: "${p.title}", Summary: "${p.description || 'No summary provided.'}"`
 ).join('\n');
+
   const prompt = `
     You are an expert AI talent-sourcing assistant. Your task is to analyze a job description and compare it against a candidate's portfolio of projects.
 

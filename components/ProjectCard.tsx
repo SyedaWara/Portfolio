@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { Project } from '../types';
 import { IconTrash, IconEdit, IconCheck, IconX } from './Icon';
+import ReactMarkdown from 'react-markdown';
 
 interface ProjectCardProps {
   project: Project;
@@ -152,7 +153,12 @@ const ProjectCard: React.FC<ProjectCardProps> = ({
         ) : (
           <>
             <h3 className="text-lg font-bold text-slate-800">{project.title}</h3>
-            <p className="text-sm text-slate-600 leading-relaxed mb-4">{project.description}</p>
+<div className="prose prose-sm text-slate-600 leading-relaxed mb-4">
+  <ReactMarkdown>
+    {project.description}
+  </ReactMarkdown>
+</div>
+
           </>
         )}
       </div>
