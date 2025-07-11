@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Skill } from '../types';
-import { IconDownload, IconEnvelope, IconPhone, IconPlus, IconX } from './Icon';
+import { IconDownload, IconEnvelope, IconPhone, IconPlus, IconX,IconGitHub  } from './Icon';
 
 interface AboutProps {
   skills: Skill[];
@@ -128,6 +128,15 @@ const About: React.FC<AboutProps> = ({ skills, isAuthenticated, onAddSkill, onDe
         </svg>
         <span className="text-sm font-medium">https://www.linkedin.com/in/wara-batool-83047023a/</span>
       </a>
+      <a
+  href="https://github.com/SyedaWara"
+  target="_blank"
+  rel="noopener noreferrer"
+  className="flex items-center gap-3 text-slate-600 hover:text-linkedin-blue group transition-colors duration-200"
+>
+  <IconGitHub className="h-5 w-5 text-slate-400 group-hover:text-linkedin-blue transition-colors duration-200" />
+  <span className="text-sm font-medium">github.com/SyedaWara</span>
+</a>
           </div>
         </div>
       )}
