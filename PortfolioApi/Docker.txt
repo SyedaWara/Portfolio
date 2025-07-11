@@ -1,0 +1,22 @@
+# Use official ASP.NET runtime image as base
+FROM mcr.microsoft.com/dotnet/aspnet:6.0 AS base
+WORKDIR /app
+EXPOSE 80
+
+# Use .NET SDK image to build the app
+FROM mcr.microsoft.com/dotnet/sdk:6.0 AS build
+WORKDIR /src
+
+# Copy and restore the csproj
+COPY ["PortfolioApi.csproj", "./"]
+RUN dotnet restore "./PortfolioApi.csproj"
+
+# Copy the rest of the code and publish
+COPY . .
+RUN dotnet publish "PortfolioApi.csproj" -c Release -o /app/publish
+
+# Final runtime image
+FROM base AS final
+WORKDIR /app
+COPY --from=build /app/publish .
+ENTRYPOINT ["dotnet", "PortfolioApi.dll"]
