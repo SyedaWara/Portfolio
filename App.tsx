@@ -65,33 +65,31 @@ const App: React.FC = () => {
     return projects.filter(p => matchedIds.has(p.id));
   };
   
-const handleLogin = async (password: string): Promise<boolean> => {
-  try {
-    const response = await fetch("http://localhost:5000/api/Auth/login", {
-      method: "POST",
-      headers: {
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({ password }),
-    });
+  const handleLogin = async (password: string): Promise<boolean> => {
+    try {
+      const response = await fetch("http://localhost:5000/api/Auth/login", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ password }),
+      });
 
-    if (response.ok) {
-      const data = await response.json();
-      if (data.success === true) {
-        setIsAuthenticated(true);     // ✅ set user as authenticated
-        setShowLogin(false);          // ✅ close the modal
-        return true;
+      if (response.ok) {
+        const data = await response.json();
+        if (data.success === true) {
+          setIsAuthenticated(true);     // ✅ set user as authenticated
+          setShowLogin(false);          // ✅ close the modal
+          return true;
+        }
       }
+
+      return false;
+    } catch (error) {
+      console.error("Login error:", error);
+      return false;
     }
-
-    return false;
-  } catch (error) {
-    console.error("Login error:", error);
-    return false;
-  }
-};
-
-
+  };
 
   const handleLogout = () => {
     setIsAuthenticated(false);
@@ -103,6 +101,17 @@ const handleLogin = async (password: string): Promise<boolean> => {
       setProjects(prevProjects => [newProject, ...prevProjects]);
     } catch (err) {
       setError(err instanceof Error ? err.message : 'Failed to add project.');
+    }
+  };
+
+  const handleUpdateProject = async (id: number, updates: Partial<Project>) => {
+    try {
+      const updatedProject = await apiService.updateProject(id, updates);
+      setProjects(prevProjects => 
+        prevProjects.map(p => p.id === id ? updatedProject : p)
+      );
+    } catch (err) {
+      setError(err instanceof Error ? err.message : 'Failed to update project.');
     }
   };
 
@@ -182,6 +191,7 @@ const handleLogin = async (password: string): Promise<boolean> => {
                 projects={projects} 
                 isAuthenticated={isAuthenticated}
                 onAddProject={handleAddProject}
+                onUpdateProject={handleUpdateProject}
                 onDeleteProject={handleDeleteProject}
              />
           </div>

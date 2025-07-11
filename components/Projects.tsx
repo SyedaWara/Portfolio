@@ -8,10 +8,17 @@ interface ProjectsProps {
   projects: Project[];
   isAuthenticated: boolean;
   onAddProject: (projectData: Omit<Project, 'id' >) => void;
+  onUpdateProject: (id: number, updates: Partial<Project>) => void;
   onDeleteProject: (id: number) => void;
 }
 
-const Projects: React.FC<ProjectsProps> = ({ projects, isAuthenticated, onAddProject, onDeleteProject }) => {
+const Projects: React.FC<ProjectsProps> = ({ 
+  projects, 
+  isAuthenticated, 
+  onAddProject, 
+  onUpdateProject, 
+  onDeleteProject 
+}) => {
   const [showAddForm, setShowAddForm] = useState(false);
 
   const handleAddProjectSubmit = (projectData: Omit<Project, 'id'> ) => {
@@ -47,6 +54,7 @@ const Projects: React.FC<ProjectsProps> = ({ projects, isAuthenticated, onAddPro
                     key={project.id} 
                     project={project}
                     isAuthenticated={isAuthenticated}
+                    onUpdateProject={onUpdateProject}
                     onDeleteProject={onDeleteProject}
                 />
             ))}

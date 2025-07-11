@@ -43,6 +43,15 @@ export async function addProject(projectData: Omit<Project, 'id'> ): Promise<Pro
     return handleResponse<Project>(response);
 }
 
+export async function updateProject(id: number, updates: Partial<Project>): Promise<Project> {
+    const response = await fetch(`${API_BASE_URL}/Projects/${id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(updates),
+    });
+    return handleResponse<Project>(response);
+}
+
 export async function deleteProject(id: number): Promise<void> {
     const response = await fetch(`${API_BASE_URL}/Projects/${id}`, {
         method: 'DELETE',

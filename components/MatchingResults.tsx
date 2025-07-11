@@ -8,39 +8,51 @@ interface MatchingResultsProps {
 }
 
 const MatchingResults: React.FC<MatchingResultsProps> = ({ summary, matchedProjects }) => {
-  
-  return (
-    <div className="bg-white rounded-lg shadow-md border border-slate-200 animate-fade-in">
-      <div className="p-6">
-          <h3 className="text-xl font-bold text-slate-800 mb-4">
-            AI Match Analysis
-          </h3>
-          <div className="bg-blue-50 border-l-4 border-linkedin-blue p-4 rounded-r-md">
-            <p className="text-sm text-slate-700 leading-relaxed whitespace-pre-wrap">{summary}</p>
-          </div>
-      </div>
-      
+  // Empty function for matched projects since they shouldn't be editable in this context
+  const handleUpdateProject = () => {
+    // No-op: Projects in matching results are read-only
+  };
 
-      {matchedProjects.length > 0 && (
-        <div>
-          <div className="px-6 pb-4">
-            <h3 className="text-lg font-bold text-slate-800">
-                Relevant Projects
-            </h3>
-          </div>
-          <div className="divide-y divide-slate-200">
-            {matchedProjects.map(project => (
-              <ProjectCard 
-                key={project.id} 
-                project={project}
-                // These props are not needed for the read-only view
-                isAuthenticated={false}
-                onDeleteProject={() => {}}
-              />
-            ))}
-          </div>
+  const handleDeleteProject = () => {
+    // No-op: Projects in matching results are read-only
+  };
+
+  return (
+    <div className="bg-white rounded-lg shadow-md border border-slate-200">
+      <div className="p-6">
+        <h2 className="text-xl font-bold text-slate-800 mb-4">AI Analysis Results</h2>
+        
+        <div className="mb-6">
+          <h3 className="text-lg font-semibold text-slate-700 mb-2">Why You're a Great Fit</h3>
+          <p className="text-slate-600 leading-relaxed">{summary}</p>
         </div>
-      )}
+
+        {matchedProjects.length > 0 && (
+          <div>
+            <h3 className="text-lg font-semibold text-slate-700 mb-4">
+              Relevant Projects ({matchedProjects.length})
+            </h3>
+            <div className="space-y-4">
+              {matchedProjects.map(project => (
+                <div key={project.id} className="border border-slate-200 rounded-lg">
+                  <ProjectCard 
+                    project={project}
+                    isAuthenticated={false} // Always false in matching results
+                    onUpdateProject={handleUpdateProject}
+                    onDeleteProject={handleDeleteProject}
+                  />
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
+
+        {matchedProjects.length === 0 && (
+          <div className="text-center py-8">
+            <p className="text-slate-500">No specific projects matched this job description.</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };
